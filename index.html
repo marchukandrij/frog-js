@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Frog 50</title>
+    <style>
+        * { 
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body {
+            background-image: url('bg.jpg');
+            background-size: cover;
+        }
+        .block {
+            background-color: rgba(158, 211, 163, 0.808);
+            padding: 1cm;
+            position: absolute;
+            width: 50%;
+            left: 25%;
+            top: 30%;
+        }
+        .code {
+            color: red;
+            font-weight: bold;
+        }
+        .val {
+            color: blue;
+            font-weight: bold;
+        }   
+        button {
+            background-color: rgb(115, 241, 235);
+            color: black;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="block">
+        <h1> Frog 50 </h1>
+        <div class="buttons">
+            <button onclick="showPrev();"> < Prev </button>
+            <button onclick="showNext();"> Next > </button>
+        </div>
+        <h3 class="task"></h3>
+    </div>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+
+        var tasks = [
+            `Створіть змінну з іменем <span class="code">firstVariable</span>`,
+
+            `Збережіть у змінній <span class="code">firstVariable</span> число <span class="val">56</span>`,
+
+            `Створіть змінну з іменем <span class="code">secondVariable</span> і збережіть у ній довільний текст`,
+
+            `Створіть змінну <span class="code">sumVariable</span> і збережіть у ній результат 
+            додавання <span class="code">firstVariable</span> до <span class="code">secondVariable</span>.
+            Що буде результатом?`,
+
+            `Створіть змінну <span class="code">x</span> зі значенням <span class="val">15.56</span>`,
+
+            `Створіть змінну <span class="code">y</span> і збережіть у ній результат формули <span class="code">x * 15 + firstVariable</span>.
+            Яке значення в змінній <span class="code">y</span>?`,
+
+            `Створіть чотири змінні з числами від 0 до 255 з назвами <span class="code">ip1</span>, <span class="code">ip2</span>, 
+            <span class="code">ip3</span>, <span class="code">ip4</span>. 
+            Виведіть через alert() текст, який буде складатись із цих чотирьох чисел у форматі "8.34.53.34"`,
+
+            `Виведіть суму чисел <span class="code">ip1</span>, <span class="code">ip2</span>, 
+            <span class="code">ip3</span>, <span class="code">ip4</span>`,
+
+            `Перетворіть значення <span class="code">firstVariable</span> із числа в текст і збережіть у цій же змінній`,
+
+            `Перетворіть значення <span class="code">firstVariable</span> із тексту в число. Додайте 100 і збережіть у цій же змінній.
+            Яке там значення?`,
+
+            `Створіть змінну <span class="code">isBigger</span> у яку збережіть 
+            результат порівняння: чи більше <span class="code">firstVariable</span> ніж 120.
+            Що у змінній і який це тип даних?`,
+
+            `Що буде результатом виразу <span class="code">Boolean('false')</span>?`,
+
+            `Виведіть у консоль повідомлення, якщо <span class="code">ip1 > ip2</span>`,
+
+            `Виведіть у консоль повідомлення, якщо <span class="code">ip1 < ip2</span> і <span class="code">isBigger</span> є true`,
+
+            `Створіть змінну <span class="code">list</span> в якій збережіть список із 5-и чисел`,
+
+            `У списку <span class="code">list</span> змініть 0-й елемент, щоб він став рівним сумі 1-го та 2-го`,
+
+            `Додайте у <span class="code">list</span> новий елемент зі значенням "я текст"`,
+
+            `Видаліть зі списку <span class="code">list</span> 0-й елемент`,
+
+            `Як програмно дізнатися що у змінній <span class="code">secondVariable</span> текст, а не число?`,
+
+            `Створіть змінну <span class="code">index</span> зі значенням <span class="val">3</span>. 
+            Отримайте зі списку <span class="code">list</span> елемент із номером на 1 більшим ніж значення <span class="code">index</span>`,
+
+            `У списку <span class="code">list</span> змініть 1-й елемент, на масив із трьох елементів: "red", "green", "blue".
+            Виведіть в консоль значення 1-го елементу із вкладеного масиву`,
+
+            `Який тип даних у <span class="code">list[4]</span>`,
+
+            `Що ми отримаємо коли напишем <span class="code">list[50]</span>`,
+
+            `Виведіть в консоль кожен елемент зі списку <span class="code">list</span>`,
+
+            `Змініть кожен другий елемент у <span class="code">list</span> на "zero"`,
+
+            `Додайте у список <span class="code">list</span> ще 500 елементів типу "Елемент 1", "Елемент 2", ... , "Елемент 500"`,
+
+            `Створіть змінну <span class="code">obj</span> в якій збережіть пустий об'єкт.
+            Додайте цьому об'єкту властивість <span class="code">name</span> зі значенням "frog"`,
+
+            `Додайте об'єкту <span class="code">obj</span> властивість <span class="code">list</span> 
+            зі значенням змінної <span class="code">list</span>.
+            Який тип даних у властивості <span class="code">list</span>?`,
+
+            `Виведіть у консоль значення 0-го елементу із властивості <span class="code">list</span> об'єкту <span class="code">obj</span>`,
+
+            `Як перевірити чи в об'єкті <span class="code">obj</span> є властивість <span class="code">count</span>`,
+
+            `Виведіть у консоль перелік усіх властивостей об'єкту <span class="code">obj</span> і їх значення`,
+
+            `Створіть функцію <span class="code">hallo</span> яка буде виводити привітання у консоль`,
+
+            `Створіть функцію <span class="code">printVar</span> яка буде виводити у консоль те значення,
+            яке ми їй передамо. Виконайте <span class="code">printVar(isBigger)</span>.
+            Який результат?`,
+
+            `Створіть функцію <span class="code">printList</span> яка буде отримувати список і виводити у консоль
+            кожен елемент зі списку який ми їй передамо. 
+            Виконайте <span class="code">printList(obj.list)</span>.
+            Який результат?`,
+
+            `Створіть функцію <span class="code">makeDiv</span> яка буде отримувати текстовий контент, додавати до
+            нього спереду "&lt;div>" і ззаду "&lt;/div>", та повертати результат. 
+            Виконайте <span class="code">makeDiv("Блок 1")</span>.
+            Який результат?`,
+
+            `Збережіть функцію <span class="code">printVar</span> у змінній <span class="code">f1</span>`,
+
+            `Виконайте функцію у змінній <span class="code">f1</span>`,
+
+            `Збережіть функцію <span class="code">printList</span> у 0-у елементі списку <span class="code">list</span>.
+            Виконайте її, передавши цей список, як параметр`,
+
+            `Збережіть функцію <span class="code">makeDiv</span> у властивості <span class="code">makeDiv</span> 
+            об'єкту <span class="code">obj</span>.
+            Виконайте її, передавши параметр <span class="code">obj.name</span>`,
+
+            `Створіть функцію <span class="code">makeObj</span> яка буде отримувати параметр <span class="code">name</span>
+            і повертати об'єкт з властивістю <span class="code">name</span> як у переданому параметрі`,
+
+            `Створіть функцію <span class="code">makeObj2</span> яка буде отримувати параметр <span class="code">name</span>
+            і повертати об'єкт з властивістю <span class="code">name</span> як у переданому параметрі, 
+            а також властивість <span class="code">print</span> у якій буде функція, що виводить імя в консоль`,
+
+            `Який тип даних у змінної <span class="code">document</span>?`,
+
+            `Який тип даних у властивості <span class="code">body</span> змінної <span class="code">document</span>?`,
+
+            `Який тип даних у властивості <span class="code">getElementById</span> змінної <span class="code">document</span>?`,
+
+            `Який тип даних є результатом функції <span class="code">querySelectorAll</span> змінної <span class="code">document</span>?`,
+
+            `Скільки буде 2+2?`,
+
+            `Чи можливо одну функцію зберегти у кількох змінних?`,
+
+            `Як то всьо робе?`,
+
+            `Чому ви не робите тести в уроках?`,
+
+            `Ви ще памятаєте як верстати?`,
+
+            'Finita'
+        ];
+
+        var current = 0;
+
+        function showCurrent() {
+            var text = "#"+current+". "+tasks[current];
+            $('.task').html(text)
+        }
+
+        function showPrev() {
+            current -= 1;
+            if (current < 0) {
+                current = 0;
+            }
+            showCurrent();
+        }
+
+        function showNext() {
+            current += 1;
+            if (current >= tasks.length) {
+                current = tasks.length - 1;
+            }
+            showCurrent();
+        }
+
+        showCurrent();
+
+    </script>
+
+</body>
+</html>
